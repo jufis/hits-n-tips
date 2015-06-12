@@ -1,3 +1,4 @@
 # Hits'N'Tips
 
-[filenet test](docs/filenet.md)
+## [HOWTO Filenet](docs/filenet.md)
+## [HOWTO Maximo](docs/maximo.md)
