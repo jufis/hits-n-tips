@@ -1,3 +1,3 @@
 # Hits'N'Tips
 
-quick howtos
+[filenet test](docs/filenet.md)
