@@ -5,8 +5,11 @@ Run maximo on websphere portal using an iframe or web doc app. This mut be using
 
 ##B. GENERAL REFFERENCES
 http://www-01.ibm.com/support/docview.wss?uid=swg21625523
+
 http://www-01.ibm.com/support/docview.wss?uid=swg21633574
+
 http://www-01.ibm.com/support/docview.wss?uid=swg21569050
+
 https://www.ibm.com/developerworks/community/blogs/a9ba1efe-b731-4317-9724-a181d6155e3a/entry/maximo_and_ldap_configuration_from_start_to_finish?lang=en
 
 ##C. REQUIREMENTS
@@ -59,11 +62,6 @@ Add a new admin user to TDS
     objectclass: ibm-slapdConfigEntry
     objectclass: ibm-slapdAdminGroupMember
 
-
-Structure examples from cosmote production:
-Inline image 1
-Inline image 2
-Inline image 3
 For our case I'm attaching the whole tree in an ldif so you can import to your ldap.
 
 ##1. WAS REPOSITORY FOR TDS SETUP
