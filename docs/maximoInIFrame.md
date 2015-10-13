@@ -11,7 +11,7 @@ http://www-01.ibm.com/support/docview.wss?uid=swg21633574
 http://www-01.ibm.com/support/docview.wss?uid=swg21569050
 
 https://www.ibm.com/developerworks/community/blogs/a9ba1efe-b731-4317-9724-a181d6155e3a/entry/maximo_and_ldap_configuration_from_start_to_finish?lang=en
-
+j
 ##C. REQUIREMENTS
 I assume that the following are already in place:
 
@@ -53,7 +53,7 @@ Add a new admin user to TDS
     dn: cn=jufis, cn=AdminGroup, cn=Configuration
     cn: jufis
     ibm-slapdAdminDN: cn=jufis
-    ibm-slapdAdminPW: jufis13
+    ibm-slapdAdminPW: jufis
     ibm-slapdAdminRole: AuditAdmin
     ibm-slapdAdminRole: DirDataAdmin
     ibm-slapdAdminRole: SchemaAdmin
@@ -62,7 +62,9 @@ Add a new admin user to TDS
     objectclass: ibm-slapdConfigEntry
     objectclass: ibm-slapdAdminGroupMember
 
-For our case I'm attaching the whole tree in an ldif so you can import to your ldap.
+For our case I'm an ldif so you can import to your ldap from here:
+
+    https://github.com/jufis/hits-n-tips/blob/master/resources/tdsTestEnv.ldif
 
 ##1. WAS REPOSITORY FOR TDS SETUP
 
@@ -71,30 +73,40 @@ Create a new TDS repo and configure federation as follows:
 
     Realm name
     LDAP
+    
     Primary admin user
     wasadmin
+    
     Ignore case for authorization
     [selected]
+    
     Base DN
     o=rural,C=GR
+    
     Login properties in TDS
     uid;cn
+    
     Support referrals to other LDAP servers 
     [ignored]
+    
     Bind user
     cn=wasadmin,ou=users,o=rural,C=GR
+    
     Ldap entity types
     Group	groupOfNames  (search filter 1=2)
     OrgContainer	organization;organizationalUnit;domain;container  
     PersonAccount	inetOrgPerson  
+    
     Group attribute definition
     scope->direct
     member attributes: member (name), direct (scope), groupOfNames (object class)
     dynamic member attributes: none
+    
     Federated repos->supported entity types
     Group	           ou=groups,o=rural,C=GR	      cn  
     OrgContainer	    ou=users,o=rural,C=GR	      o;ou;dc;cn  
-    PersonAccount       ou=users,o=rural,C=GR             uid;userPrincipalName  
+    PersonAccount       ou=users,o=rural,C=GR         uid;userPrincipalName  
+    
     Federated repositories > Trusted authentication realms - inbound
     [selected] 
 
@@ -322,25 +334,27 @@ Other Servers setup (ie. portal)
 
 ##11. PORTAL LDAP
 
-Follow chaotic steps in pdf attached.
+Follow chaotic steps in pdf here:
+
+    https://github.com/jufis/hits-n-tips/blob/master/resources/WebSphere%20Portal%20v8.5%20and%20LDAP%20Integration%20Guide.pdf
 
 ##12. Portal IFRAME Test
 
 Let's try the portal home page now with an iframe in a wcm article pointing to maximo:
 
-Inline image 1
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_004.png)
 
 That's good because we haven't login to portal yet! (Yes we can change the login portal form to something else or choose to not display the iframe when in public mode ie. not logged in)
 
 Let's try to login to portal now and see what it will bring up:
 
-Inline image 2
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_006.png)
 
 Looks good, in my iframe code I point to the SR application so this is what we see in here!
 
 Now let's see how is logged in to maximo (always via portal):
 
-Inline image 3
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_011.png)
 
 Apparently that's us! Maximo is configured to allow only 1 uisession per http session. Let's browse a little between apps and see if that causes any problems and then come back to user sessions and see what's in there. Problems found as this configuration currently leaks uisessions and during portal page browsing every time we go back to portal we general a new logged-in user for maximo. That is not good because it will leak sessions and exaust server resources.
 
@@ -360,10 +374,10 @@ When you navigate from the iframe to other portal pages and back maximo creates 
 
     https://maximo.rural.gr/maximo/ui/maximo.jsp?event=loadapp&amp;value=sr&amp;additionalevent=useqbe&amp;portalmode=true
 
-
 According to the following refferences maximo enforces different uisession per browser tab:
 
 http://www-01.ibm.com/support/docview.wss?uid=swg21621635
+
 https://www.ibm.com/developerworks/community/blogs/a9ba1efe-b731-4317-9724-a181d6155e3a/entry/understanding_concurrent_browser_support_in_tpae1?lang=en
 
 I have altered the following properties in maximo in order to try to avoid this effect:
@@ -447,8 +461,11 @@ Configured the reverse proxy part of maximo into portal ihs httpd.conf and resta
 
 
 Reconfigured db2 in maximo for 2GB because I'm running our of resources:
-Ref: http://www-10.lotus.com/ldd/lfwiki.nsf/dx/Installing_And_Configuring_DB2_9.7_Server_And_The_Forms_Experience_Builder_Database
-Inline image 1
+Ref: 
+
+    http://www-10.lotus.com/ldd/lfwiki.nsf/dx/Installing_And_Configuring_DB2_9.7_Server_And_The_Forms_Experience_Builder_Database
+
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_015.png)
 
 Now magic: Nothing works, we get the page but all the html is reffering to the maximo.rural.gr instead of portal.rural.gr. We need to reverse proxy the html produced by maximo for the links as well.
 
@@ -674,36 +691,36 @@ Let's restart maximo so as to login to it via portal run a few cycles and see if
 
 First /wps/portal screen, we have on purpose the aricle public to see that when we are logged out from portal we are also out from maximo:
 
-Inline image 1
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_004.png)
 
 Login screen in portal:
 
-Inline image 2
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_003.png)
 
 Welcome screen after loggin-in to portal:
 
-Inline image 3
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_006.png)
 
 Bravely enough it brought us to the calendars were I left of last time! Great! Let's navigate to another portal page and come back to calendars:
 
-Inline image 4
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_008.png)
 
 Back to maximo now:
 
-Inline image 5
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_006.png)
 
 Great we are back in calendars, let's goto users and click manage sessions and see how many wpadmin users are logged in:
 
-Inline image 6
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_011.png)
 
 That is a beauty we only have 1 user logged-in!!! No matter how many times I go back and forth to another portal page that doesn't general new ui sessions in maximo!
 
 We still need to resolve 2 more things:
 
 a. test maximo auto logout functionality redirect that doesn't though us out of portal:
-Inline image 7
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_020.png)
 This is good because if we have synchronized sessionid timeouts when the user navigates to another portal page he will get this:
-Inline image 8
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_028.png)
 b. test maximo protocol redirects when no other user sessions as allowed to login to maximo.
 
 For search and replacing http redirects we can use mod_headers apache module having in mind this:
@@ -731,11 +748,11 @@ Here we try to avoid in reality 2 kind of redirects, the 503 (which I have disab
 
 Let's see the results going straight to maximo when the uisessions are full and the server cannot hold any more:
 
-Inline image 9
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_018.png)
 
 As we see we get a 302 redirect to a page saying that we have too many users in maximo. We need to run this via portal and examine its behaviour:
 
-Inline image 10
+![](https://github.com/jufis/hits-n-tips/blob/master/images/a_033.png)
 
 This now works like a charm. We are covered, http redirections are translated perfectly and we always stay within portal.
 
