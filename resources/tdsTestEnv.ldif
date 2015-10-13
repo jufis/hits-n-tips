@@ -1,0 +1,104 @@
+version: 1
+
+dn: o=rural,C=GR
+objectClass: top
+objectClass: organization
+o: rural
+
+dn: ou=users,o=rural,C=GR
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+dn: cn=mxintadm,ou=users,o=rural,C=GR
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: mxintadm
+sn: integratoras
+displayName: max integrator
+givenName: max
+uid: maxintadm
+userPassword:: bWF4aW1vMjAxM0A=
+
+dn: ou=groups,o=rural,C=GR
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=maximousers,ou=groups,o=rural,C=GR
+objectClass: top
+objectClass: groupOfNames
+cn: maximousers
+member: cn=jufis,ou=users,o=rural,C=GR
+member: cn=maxadmin,ou=users,o=rural,C=GR
+member: cn=maxreg,ou=users,o=rural,C=GR
+member: cn=mxintadm,ou=users,o=rural,C=GR
+
+dn: cn=jufis,ou=users,o=rural,C=GR
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: jufis
+sn: kossionis
+displayName: programming motherfucker
+givenName: georgios
+uid: jufis
+userPassword:: anVmaXMxMw==
+
+dn: cn=maxadmin,ou=users,o=rural,C=GR
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: maxadmin
+sn: admin
+displayName: god
+givenName: max
+uid: maxadmin
+userPassword:: bWF4aW1vMjAxM0A=
+
+dn: cn=maxreg,ou=users,o=rural,C=GR
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: maxreg
+sn: regas
+displayName: max regas
+givenName: max
+uid: maxreg
+userPassword:: bWF4aW1vMjAxM0A=
+
+dn: cn=wasadmin,ou=users,o=rural,C=GR
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: wasadmin
+sn: wasadmin
+displayName: wasadmin
+givenName: wasadmin
+uid: wasadmin
+userPassword:: bWF4aW1vMjAxM0A=
+
+dn: cn=wpadmin,ou=users,o=rural,C=GR
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: wpadmin
+sn: wpadmin
+displayName: wpadmin
+givenName: wpadmin
+uid: wpadmin
+userPassword:: d3BhZG1pbg==
+
+dn: cn=wpsadmins,ou=groups,o=rural,C=GR
+objectClass: top
+objectClass: groupOfNames
+cn: wpsadmins
+member: cn=wpadmin,ou=users,o=rural,C=GR
+
