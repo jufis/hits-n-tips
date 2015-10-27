@@ -1,7 +1,7 @@
 #Running Maximo Asset Management in WebSphere Portal using IFRAME in SSO environment
 
 ##A. SCOPE
-Run maximo on websphere portal using an iframe or web doc app. This mut be using SSO ie. login to portal will auto login to maximo as well. Solution must not leak maximo ui sessions otherwise maximo will run out of resources or result in a DOS situation where no more users are allowed to login.
+Run IBM Maximo Asset Management 7.5 on IBM WebSphere Portal 8.5 using an iframe. This must be using SSO ie. login to portal will auto login to maximo as well. Solution must not leak maximo ui sessions otherwise maximo will run out of resources or result in a DOS situation where no more users are allowed to login.
 
 ##B. GENERAL REFFERENCES
 http://www-01.ibm.com/support/docview.wss?uid=swg21625523
@@ -11,7 +11,7 @@ http://www-01.ibm.com/support/docview.wss?uid=swg21633574
 http://www-01.ibm.com/support/docview.wss?uid=swg21569050
 
 https://www.ibm.com/developerworks/community/blogs/a9ba1efe-b731-4317-9724-a181d6155e3a/entry/maximo_and_ldap_configuration_from_start_to_finish?lang=en
-j
+
 ##C. REQUIREMENTS
 I assume that the following are already in place:
 
